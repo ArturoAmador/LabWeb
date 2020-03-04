@@ -1,0 +1,16 @@
+<h3>Catalogo Juegos</h3>
+<br>
+<div class="row">
+  <div class="col-4" *ngFor="let game of catalog">
+    <div class="card" style="width: 18rem;">
+      <img src="{{game.image}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{game.name}}</h5>
+        <p>developer: {{game.developer}}</p>
+        <br/>
+        <small>Lauch year: {{game.year}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+
