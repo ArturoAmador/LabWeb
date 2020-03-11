@@ -16,8 +16,9 @@ const APP_ROUTES: Routes = [
   { path: 'consolas', component: ConsolasComponent },
   //{ path: 'consolas/infoconsola', component: InfoconsolaComponent },
   { path: 'infoconsola/:id', component: InfoconsolaComponent },
-  { path: 'consolas/infoconsola/juegosconsola', component: JuegosconsolaComponent },
-  { path: 'consolas/infoconsola/juegosconsola/juego', component: JuegoComponent },
+  { path: 'infoconsola/:id/juegosconsola', component: JuegosconsolaComponent },
+  //{ path: 'consolas/infoconsola/juegosconsola', component: JuegosconsolaComponent },
+  { path: 'infoconsola/:id/juegosconsola/:juego', component: JuegoComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'principal' }
 
 ];

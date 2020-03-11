@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import {ConsolasService, Consola} from '../../../servicios/consolas.service';
 
 @Component({
   selector: 'app-juegosconsola',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JuegosconsolaComponent implements OnInit {
 
-  constructor() { }
+  juegos;
+  consola;
+
+  constructor(private activatedRoute: ActivatedRoute, private consolasService: ConsolasService) {
+    this.activatedRoute.params.subscribe(params => {
+      this.juegos = this.consolasService.obtieneJuegos(params['id']);
+      this.consola = this.consolasService.obtieneConsola(params['id']);
+    });
+  }
 
   ngOnInit() {
+
   }
 
 }
