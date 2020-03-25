@@ -130,6 +130,55 @@ export class ConsolasService {
     return this.consolas[idConsola].juegos[idJuego];
   }
 
+  buscarConsolas(palabras: string): Consola[] {
+
+    let resultadosConsolas: Consola[] = [];
+    palabras = palabras.toLowerCase();
+    for (let consola of this.consolas) {
+      let nombreConsola = consola.nombre.toLowerCase();
+      if (nombreConsola.indexOf(palabras) > -1) {
+        resultadosConsolas.push(consola);
+      }
+    }
+    return resultadosConsolas;
+
+  }
+
+  buscarJuegos(palabras: string): any {
+    let resultadosJuegos = [];
+    palabras = palabras.toLowerCase();
+    console.log('*************** CONSOLAS SERVICES ***************');
+
+    this.consolas.forEach(consolas => {
+      let juegos = consolas.juegos;
+      juegos.forEach((juego, index) => {
+        if (juego.nombre.indexOf(palabras) > -1) {
+          juego.consola = consolas.nombre;
+          juego.juegoId = index;
+          resultadosJuegos.push(juego);
+        }
+      });
+    });
+
+    return resultadosJuegos;
+
+  }
+
+  obtenerIDConsola(nombreConsola: string): number {
+    let idConsola = 0;
+
+      if (nombreConsola === 'PC Master Race')
+        idConsola = 0;
+      else if (nombreConsola === 'Playstation 4')
+        idConsola = 1;
+      else if (nombreConsola === 'Xbox One')
+        idConsola = 2;
+      else if (nombreConsola === 'Nintendo Switch')
+        idConsola = 3;
+
+    return idConsola;
+  }
+
 }
 
 export interface Consola{
