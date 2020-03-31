@@ -137,9 +137,11 @@ export class ConsolasService {
     for (let consola of this.consolas) {
       let nombreConsola = consola.nombre.toLowerCase();
       if (nombreConsola.indexOf(palabras) > -1) {
+        consola.id = this.obtenerIDConsola(consola.nombre);
         resultadosConsolas.push(consola);
       }
     }
+
     return resultadosConsolas;
 
   }
@@ -147,7 +149,6 @@ export class ConsolasService {
   buscarJuegos(palabras: string): any {
     let resultadosJuegos = [];
     palabras = palabras.toLowerCase();
-    console.log('*************** CONSOLAS SERVICES ***************');
 
     this.consolas.forEach(consolas => {
       let juegos = consolas.juegos;

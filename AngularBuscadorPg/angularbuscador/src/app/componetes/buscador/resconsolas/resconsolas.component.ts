@@ -19,6 +19,8 @@ export class ResconsolasComponent implements OnInit {
       console.log("resconsola: ",params['palabrasBusqueda']);
       this.palabrasBusqueda = params['palabrasBusqueda'];
       this.consolas = this.consolasService.buscarConsolas(this.palabrasBusqueda);
+      //this.consolasService.obtenerIDConsola(this.consolas.nombre)
+      console.log('this consolas');
       console.log(this.consolas);
     });
   }
