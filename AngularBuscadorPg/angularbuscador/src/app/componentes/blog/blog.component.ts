@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-blog',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogComponent implements OnInit {
 
-  constructor() { }
+  formularioEntrada: FormGroup;
+
+  constructor() {
+    this.formularioEntrada = new FormGroup()
+  }
 
   ngOnInit(): void {
   }

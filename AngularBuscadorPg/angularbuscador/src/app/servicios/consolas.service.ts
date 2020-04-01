@@ -134,13 +134,14 @@ export class ConsolasService {
 
     let resultadosConsolas: Consola[] = [];
     palabras = palabras.toLowerCase();
-    for (let consola of this.consolas) {
-      let nombreConsola = consola.nombre.toLowerCase();
+
+    this.consolas.forEach(consolas => {
+      const nombreConsola = consolas.nombre.toLowerCase();
       if (nombreConsola.indexOf(palabras) > -1) {
-        consola.id = this.obtenerIDConsola(consola.nombre);
-        resultadosConsolas.push(consola);
+        consolas.id = this.obtenerIDConsola(consolas.nombre);
+        resultadosConsolas.push(consolas);
       }
-    }
+    });
 
     return resultadosConsolas;
 
