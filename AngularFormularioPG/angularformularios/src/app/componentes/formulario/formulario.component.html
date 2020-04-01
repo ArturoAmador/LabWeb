@@ -1,0 +1,47 @@
+<p>formulario works!</p>
+<hr>
+<form [formGroup]="formulario" (ngSubmit)="guardar()">
+  <div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+        <input class="form-control"
+               type="text"
+               placeholder="Nombre">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido Paterno</label>
+      <div class="col-8">
+        <input class="form-control"
+               type="text"
+               placeholder="Apellido Paterno">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido Materno</label>
+      <div class="col-8">
+        <input class="form-control"
+               type="text"
+               placeholder="Apellido Materno">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo Electrónico</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="email"
+             placeholder="Correo Electrónico">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+<hr>
