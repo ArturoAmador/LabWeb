@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { ConsolasService } from '../../servicios/consolas.service';
+import {FormsModule, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-blog',
@@ -9,26 +10,27 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class BlogComponent implements OnInit {
 
   formularioEntrada: FormGroup;
-  comments: [] = [];
+  comments = JSON.parse(sessionStorage.getItem('publishment'));
 
-  constructor() {
+  constructor(private consolasService: ConsolasService) {
     this.formularioEntrada = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
       entrada: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)])
-    });
+    }, {updateOn: 'submit'});
   }
 
   ngOnInit(): void {
+    console.log(this.comments);
   }
 
   guardar() {
     const formularioData = this.formularioEntrada.value;
-    this.comments.push({
-      'nombre': formularioData.nombre,
-      'timePlushie': new Date(),
-      'entrada': formularioData.entrada
-    });
-    console.log(this.comments);
+    if (this.formularioEntrada.valid){
+      this.consolasService.savePublishment(formularioData.nombre, new Date(), formularioData.entrada);
+      this.comments = this.consolasService.getPublishments();
+      console.log(this.comments);
+    }
+
   }
 
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import {stringify} from "querystring";
 
 @Injectable()
 export class ConsolasService {
 
-  private consolas:Consola[] = [
+  private consolas: Consola[] = [
     {
       nombre: "PC Master Race",
       descripcion: "Juegos para PC",
@@ -110,23 +111,25 @@ export class ConsolasService {
     }
   ];
 
+  private comments: any = (JSON.parse(sessionStorage.getItem('publishment')) === null || JSON.parse(sessionStorage.getItem('publishment')) === undefined) ? [] : JSON.parse(sessionStorage.getItem('publishment'));
+
   constructor() {
     console.log("ConsolasService Creado...");
   }
 
-  obtieneConsolas():Consola[]{
+  obtieneConsolas(): Consola[] {
     return this.consolas;
   }
 
-  obtieneConsola(id:string){
+  obtieneConsola(id:string) {
     return this.consolas[id];
   }
 
-  obtieneJuegosConsola(idConsola:string){
+  obtieneJuegosConsola(idConsola:string) {
     return this.consolas[idConsola].juegos;
   }
 
-  obtieneJuego(idConsola:string, idJuego:string){
+  obtieneJuego(idConsola:string, idJuego:string) {
     return this.consolas[idConsola].juegos[idJuego];
   }
 
@@ -138,7 +141,7 @@ export class ConsolasService {
     this.consolas.forEach(consolas => {
       const nombreConsola = consolas.nombre.toLowerCase();
       if (nombreConsola.indexOf(palabras) > -1) {
-        consolas.id = this.obtenerIDConsola(consolas.nombre);
+        //consolas.id = this.obtenerIDConsola(consolas.nombre);
         resultadosConsolas.push(consolas);
       }
     });
@@ -179,6 +182,25 @@ export class ConsolasService {
         idConsola = 3;
 
     return idConsola;
+  }
+
+  savePublishment(name: string, fecha: any, content: string) {
+    let data = {
+      name: name,
+      fecha: fecha,
+      content: content
+    };
+    console.log('data: ', data);
+    console.log('*************** savePublishment ***************');
+    this.comments.push(data);
+    let comments = JSON.stringify(this.comments);
+    console.log(comments)
+    sessionStorage.setItem('publishment', comments);
+
+  }
+
+  getPublishments() {
+    return this.comments;
   }
 
 }

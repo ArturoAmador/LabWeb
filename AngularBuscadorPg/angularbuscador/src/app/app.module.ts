@@ -14,7 +14,7 @@ import { ConsolasService } from './servicios/consolas.service';
 import { ResconsolasComponent } from './componetes/buscador/resconsolas/resconsolas.component';
 import { ResjuegosComponent } from './componentes/buscador/resjuegos/resjuegos.component';
 import { BlogComponent } from './componentes/blog/blog.component';
-import { ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import { ReactiveFormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     APP_ROUTING
   ],
   providers: [

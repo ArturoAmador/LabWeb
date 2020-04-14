@@ -54,6 +54,11 @@
 </form>
 <hr>
 
-<div *ngFor="let comentario of comments">
-  {{comments.nombre}}
+<div class="row"><div class="col-12 text-center"><h2>Comentarios</h2></div></div>
+
+<div *ngFor="let comentario of comments; index as i">
+  <strong>{{comentario.name}}</strong><br>
+  <small>{{comentario.fecha | date:'short'}}</small>
+  <p>{{comentario.content}}</p>
+  <hr>
 </div>
