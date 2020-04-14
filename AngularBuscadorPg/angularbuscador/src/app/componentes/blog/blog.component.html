@@ -11,7 +11,8 @@
                formControlName="nombre"
                [ngClass]="{ 'is-invalid' : formularioEntrada.get('nombre').invalid }" >
       </div>
-      <div *ngIf="formularioEntrada.controls['nombre'].errors?.required" class="text-danger text-center w-100">
+
+      <div *ngIf="formularioEntrada.controls['nombre'].errors?.required && formularioEntrada.invalid" class="text-danger text-center w-100">
         Por favor indique el nombre.
       </div>
       <div *ngIf="formularioEntrada.controls['nombre'].errors?.minlength" class="text-danger text-center w-100">
