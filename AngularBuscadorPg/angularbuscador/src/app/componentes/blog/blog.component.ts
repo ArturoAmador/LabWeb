@@ -16,7 +16,7 @@ export class BlogComponent implements OnInit {
     this.formularioEntrada = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
       entrada: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)])
-    }, {updateOn: 'submit'});
+    });
   }
 
   ngOnInit(): void {
