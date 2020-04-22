@@ -83,31 +83,29 @@ exports.obtener_juegos_pro = (req, res) => {
 
             throw err;
         }
+
         const db = mdbclient.db(dbName);
-
-        //Solamente obtenemos el nombre y la matricula
-        let query = req.params.parametro;
-        console.log(query);
-        let consola = db.collection("consola");
-
-        consola.find({'nombre':new RegExp(query,'i')}).project({_id: 0, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
+        let palabraClave = req.params.palabraClave;
+        db.collection("juego").find({"_id":palabraClave}).project({_id: 0, nombre: 1, fecha: 1, developer: 1, lanzamiento:1, imagenes:1, links:1}).toArray((err, result) => {
 
             if (err) {
-
                 throw err;
             }
 
             if (result.length === 0){
-                consola.find({'_id':new RegExp(query,'i')}).project({_id: 0, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
-                    if (err) { throw err; }
+                db.collection("juego").find({"nombre":new RegExp(palabraClave,"i")}).project({_id: 0, nombre: 1, fecha: 1, developer: 1, lanzamiento:1, imagenes:1, links:1}).toArray((err, result) => {
+
+                    if (err) {
+
+                        throw err;
+                    }
 
                     console.log("Resultados Obtenidos: " + result.length);
                     mdbclient.close();
                     res.end(JSON.stringify(result));
 
-                })
-            }
-            else {
+                });
+            }else{
                 console.log("Resultados Obtenidos: " + result.length);
                 mdbclient.close();
                 res.end(JSON.stringify(result));
@@ -126,13 +124,16 @@ exports.obtener_blog = (req, res) => {
 
             throw err;
         }
+
+        let query = req.params.parametro;
         const db = mdbclient.db(dbName);
-        db.collection("publicaciones").find().project({_id: 0, nombre: 1, fecha: 1, contenido: 1}).toArray((err, result) => {
+        db.collection("publicaciones").find({"_id":query}).project({_id: 0, nombre: 1, fecha: 1, contenido: 1}).toArray((err, result) => {
 
             if (err) {
 
                 throw err;
             }
+
 
             console.log("Resultados Obtenidos: " + result.length);
             mdbclient.close();
