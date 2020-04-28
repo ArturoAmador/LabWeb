@@ -10,7 +10,6 @@ module.exports = function (app) {
 
     app.route('/buscar_juegos_limited/:palabraClave').get(juegosController.obtener_juegos_limited);
 
-
     app.route('/blog').get(juegosController.obtener_blog);
 
 };
