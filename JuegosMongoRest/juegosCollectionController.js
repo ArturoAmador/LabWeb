@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017";
 const dbName = 'videojuegos';
 
-//A
+//A y B
 exports.obtener_plataforma = (req, res) => {
     MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
                                                                                   mdbclient) =>{
@@ -74,8 +74,48 @@ exports.obtener_juegos_aggregate = function(req, res) {
     });
 };
 
+// D
+exports.obtener_juegos_limited = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+        if (err) {
 
-//e
+            throw err;
+        }
+
+        const db = mdbclient.db(dbName);
+        let palabraClave = req.params.palabraClave;
+        db.collection("juego").find({"_id":palabraClave}).project({_id: 0, nombre: 1, imagen: 1}).toArray((err, result) => {
+
+            if (err) {
+                throw err;
+            }
+
+            if (result.length === 0){
+                db.collection("juego").find({"nombre":new RegExp(palabraClave,"i")}).project({_id: 0, nombre: 1, imagen: 1}).toArray((err, result) => {
+
+                    if (err) {
+
+                        throw err;
+                    }
+
+                    console.log("Resultados Obtenidos: " + result.length);
+                    mdbclient.close();
+                    res.end(JSON.stringify(result));
+
+                });
+            }else{
+                console.log("Resultados Obtenidos: " + result.length);
+                mdbclient.close();
+                res.end(JSON.stringify(result));
+            }
+
+        });
+
+    });
+};
+
+// E
 exports.obtener_juegos_pro = (req, res) => {
     MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
                                                                                   mdbclient) =>{
@@ -116,7 +156,7 @@ exports.obtener_juegos_pro = (req, res) => {
     });
 };
 
-
+// F
 exports.obtener_blog = (req, res) => {
     MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
                                                                                   mdbclient) =>{
