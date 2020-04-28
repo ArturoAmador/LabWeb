@@ -54,7 +54,7 @@ exports.obtener_juegos_aggregate = function(req, res) {
 
             throw err;
         }
-        const db = mdbclient.db(dbName);
+        /*const db = mdbclient.db(dbName);
         var col = db.collection('juegos');
         var palabraClave = req.params.palabraClave;
         col.aggregate([
@@ -70,7 +70,37 @@ exports.obtener_juegos_aggregate = function(req, res) {
             mdbclient.close();
             res.end( JSON.stringify(result));
 
+        });*/
+
+        const db = mdbclient.db(dbName);
+        let palabraClave = req.params.palabraClave;
+        db.collection("juego").find({"_id":palabraClave}).project({_id: 0, nombre: 1, imagen: 1}).toArray((err, result) => {
+
+            if (err) {
+                throw err;
+            }
+
+            if (result.length === 0){
+                db.collection("juego").find({"nombre":new RegExp(palabraClave,"i")}).project({_id: 0, nombre: 1, imagen: 1}).toArray((err, result) => {
+
+                    if (err) {
+
+                        throw err;
+                    }
+
+                    console.log("Resultados Obtenidos: " + result.length);
+                    mdbclient.close();
+                    res.end(JSON.stringify(result));
+
+                });
+            }else{
+                console.log("Resultados Obtenidos: " + result.length);
+                mdbclient.close();
+                res.end(JSON.stringify(result));
+            }
+
         });
+
     });
 };
 
