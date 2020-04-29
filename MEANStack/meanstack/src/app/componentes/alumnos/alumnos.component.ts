@@ -13,7 +13,7 @@ export class AlumnosComponent implements OnInit {
   constructor(public  alumnosService: AlumnosService) {
 
     this.alumnosAsincrono = new Promise((resolve, reject) => {
-      this.alumnosAsincrono.getAlumnos().subscribe( alumnos => {
+      this.alumnosService.getAlumnos().subscribe( alumnos => {
         console.log(alumnos);
         resolve(alumnos);
       });
