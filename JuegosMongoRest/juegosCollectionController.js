@@ -261,42 +261,21 @@ exports.obtener_juegos_plataforma = (req, res) => {
         console.log('id: ',id);
         let consola = db.collection("consola");
         let juegos = db.collection("juego");
-        let resultsGames = [];
+        let games;
 
         consola.find({'_id': new RegExp(id,'i') }).project({_id: 0, lista_de_juesgo: 1}).toArray((err, result) => {
 
-            console.log("Resultados Obtenidos: " + result.length);
-
             Object.keys(result).forEach(idx => {
-
-                let games = result[idx].lista_de_juesgo;
-                console.log('games: ', games);
-
-                games.forEach(id => {
-                    console.log('id: ', id);
-                    juegos.find({'_id': id}).toArray( (err, result) => {
-                        console.log('result games: ', result);
-                        //resultsGames.push(result);
-                    });
-                })
-
+                games = result[idx].lista_de_juesgo;
             });
 
-            mdbclient.close();
-            res.end(JSON.stringify(result));
-            //let juesgosID = JSON.stringify(result);
-
-            /*console.log(juegosID);
-
-            Object.keys(juesgosID).forEach(idx => {
-                //console.log('idx', idx);
-                juegos.find({'_id':idx._id}).toArray( (err, result) => {
-                    //console.log('result', result);
-                    resultsGames.push(result);
-                });
+            juegos.find({'_id':{$in:games}}).toArray( (err, result) => {
+                console.log('result games: ', JSON.stringify(result));
+                //resultsGames.push(result);
+                mdbclient.close();
+                res.end(JSON.stringify(result));
             });
-            mdbclient.close();
-            res.end(JSON.stringify(resultsGames));*/
+
         });
 
     });

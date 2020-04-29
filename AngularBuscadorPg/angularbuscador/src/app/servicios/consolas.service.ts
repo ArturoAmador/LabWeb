@@ -126,13 +126,14 @@ export class ConsolasService {
     return this.httpClient.get(consolaServicioRest);
   }
 
-  obtieneConsola(id:string) {
+  obtieneConsola(id: string) {
     const consolaServicioRest = 'http://localhost:8585/plataforma/' + id;
     return this.httpClient.get(consolaServicioRest);
   }
 
-  obtieneJuegosConsola(idConsola:string) {
-    return this.consolas[idConsola].juegos;
+  obtieneJuegosConsola(idConsola: string) {
+    const consolaServicioRest = 'http://localhost:8585/plataforma_juegos/' + idConsola;
+    return this.httpClient.get(consolaServicioRest);
   }
 
   obtieneJuego(idConsola:string, idJuego:string) {
