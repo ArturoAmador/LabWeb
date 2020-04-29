@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {stringify} from "querystring";
 
+import { HttpClient } from '@angular/common/http';
+
 @Injectable()
 export class ConsolasService {
 
@@ -113,16 +115,20 @@ export class ConsolasService {
 
   private comments: any = (JSON.parse(sessionStorage.getItem('publishment')) === null || JSON.parse(sessionStorage.getItem('publishment')) === undefined) ? [] : JSON.parse(sessionStorage.getItem('publishment'));
 
-  constructor() {
-    console.log("ConsolasService Creado...");
+  private ENDPOINT: string = 'http://localhost:8585/';
+
+  constructor(public httpClient: HttpClient) {
+    console.log("Servicio de consolas creado...");
   }
 
-  obtieneConsolas(): Consola[] {
-    return this.consolas;
+  obtieneConsolas() {
+    const consolaServicioRest = 'http://localhost:8585/plataformas';
+    return this.httpClient.get(consolaServicioRest);
   }
 
   obtieneConsola(id:string) {
-    return this.consolas[id];
+    const consolaServicioRest = 'http://localhost:8585/plataforma/' + id;
+    return this.httpClient.get(consolaServicioRest);
   }
 
   obtieneJuegosConsola(idConsola:string) {

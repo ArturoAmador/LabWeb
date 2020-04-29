@@ -16,6 +16,9 @@ import { ResjuegosComponent } from './componentes/buscador/resjuegos/resjuegos.c
 import { BlogComponent } from './componentes/blog/blog.component';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+import { JuegosService } from './servicios/juegos.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +37,12 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     APP_ROUTING
   ],
   providers: [
-    ConsolasService
+    ConsolasService,
+    JuegosService
   ],
   bootstrap: [AppComponent]
 })

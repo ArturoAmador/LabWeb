@@ -9,16 +9,24 @@ import { ConsolasService, Consola } from '../../servicios/consolas.service';
 })
 export class InfoconsolaComponent implements OnInit {
 
-  consola:any = {};
-  idConsola:string;
+  consola: any;
+  idConsola: string;
+  consolaAsincrono: any;
 
-  constructor(private activatedRoute:ActivatedRoute,
-              private consolasService:ConsolasService) {
+  constructor(private activatedRoute:ActivatedRoute, private consolasService:ConsolasService) {
     this.activatedRoute.params.subscribe(params => {
-      console.log(params['id']);
-      this.consola = this.consolasService.obtieneConsola(params['id']);
-      this.idConsola = params['id'];
-    })
+      //console.log(params['id']);
+      this.consolaAsincrono = new Promise((resolve, reject) => {
+        this.consolasService.obtieneConsola(params['id']).subscribe(consola => {
+          console.log(consola);
+          this.consola = consola;
+          resolve(consola);
+        });
+      });
+
+        /*this.consolasService.obtieneConsola(params['id']);
+        this.idConsola = params['id'];*/
+    });
   }
 
   ngOnInit() {

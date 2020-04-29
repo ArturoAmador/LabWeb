@@ -18,7 +18,7 @@ exports.obtener_plataforma = (req, res) => {
         console.log(query);
         let consola = db.collection("consola");
 
-        consola.find({'nombre':new RegExp(query,'i')}).project({_id: 0, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
+        consola.find({'nombre':new RegExp(query,'i')}).project({_id: 1, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
 
             if (err) {
 
@@ -26,7 +26,7 @@ exports.obtener_plataforma = (req, res) => {
             }
 
             if (result.length === 0){
-                consola.find({'_id':new RegExp(query,'i')}).project({_id: 0, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
+                consola.find({'_id':new RegExp(query,'i')}).project({_id: 1, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
                     if (err) { throw err; }
 
                     console.log("Resultados Obtenidos: " + result.length);
@@ -212,4 +212,93 @@ exports.obtener_blog = (req, res) => {
         });
 
     });
+};
+
+
+exports.obtener_todas_plataformas = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+        if (err) {
+
+            throw err;
+        }
+        const db = mdbclient.db(dbName);
+
+        //Solamente obtenemos el nombre y la matricula
+        let query = req.params.parametro;
+        console.log(query);
+        let consola = db.collection("consola");
+
+        consola.find().project({_id: 1, nombre: 1, imagen: 1, ficha_tecnica: 1}).toArray((err, result) => {
+
+            if (err) {
+
+                throw err;
+            }
+
+
+            console.log("Resultados Obtenidos: " + result.length);
+            mdbclient.close();
+            res.end(JSON.stringify(result));
+
+
+        });
+
+    });
+};
+
+
+exports.obtener_juegos_plataforma = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+
+        if (err) { throw err; }
+
+        const db = mdbclient.db(dbName);
+
+        //Solamente obtenemos el nombre y la matricula
+        let id = req.params.palabraClave;
+        console.log('id: ',id);
+        let consola = db.collection("consola");
+        let juegos = db.collection("juego");
+        let resultsGames = [];
+
+        consola.find({'_id': new RegExp(id,'i') }).project({_id: 0, lista_de_juesgo: 1}).toArray((err, result) => {
+
+            console.log("Resultados Obtenidos: " + result.length);
+
+            Object.keys(result).forEach(idx => {
+
+                let games = result[idx].lista_de_juesgo;
+                console.log('games: ', games);
+
+                games.forEach(id => {
+                    console.log('id: ', id);
+                    juegos.find({'_id': id}).toArray( (err, result) => {
+                        console.log('result games: ', result);
+                        //resultsGames.push(result);
+                    });
+                })
+
+            });
+
+            mdbclient.close();
+            res.end(JSON.stringify(result));
+            //let juesgosID = JSON.stringify(result);
+
+            /*console.log(juegosID);
+
+            Object.keys(juesgosID).forEach(idx => {
+                //console.log('idx', idx);
+                juegos.find({'_id':idx._id}).toArray( (err, result) => {
+                    //console.log('result', result);
+                    resultsGames.push(result);
+                });
+            });
+            mdbclient.close();
+            res.end(JSON.stringify(resultsGames));*/
+        });
+
+    });
+
 };

@@ -2,6 +2,8 @@
 module.exports = function (app) {
     let juegosController = require('./juegosCollectionController');
 
+    app.route('/plataformas').get(juegosController.obtener_todas_plataformas);
+
     app.route('/plataforma/:parametro').get(juegosController.obtener_plataforma);
 
     app.route('/juegos/:palabraClave').get(juegosController.obtener_juegos_aggregate);
@@ -11,5 +13,7 @@ module.exports = function (app) {
     app.route('/buscar_juegos_limited/:palabraClave').get(juegosController.obtener_juegos_limited);
 
     app.route('/blog').get(juegosController.obtener_blog);
+
+    app.route('/plataforma_juegos/:palabraClave').get(juegosController.obtener_juegos_plataforma);
 
 };
