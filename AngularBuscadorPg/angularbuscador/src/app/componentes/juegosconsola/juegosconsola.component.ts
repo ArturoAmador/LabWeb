@@ -16,11 +16,11 @@ export class JuegosconsolaComponent implements OnInit {
   //obtieneJuegosConsola
   constructor( private consolasService:ConsolasService, private activatedRoute:ActivatedRoute) {
      this.activatedRoute.params.subscribe(params => {
-       console.log(params['id']);
+       //console.log(params['id']);
        let idConsola = params['id'];
        this.juesgosAsincrono = new Promise((resolve, reject) => {
          this.consolasService.obtieneJuegosConsola(idConsola).subscribe(juegos => {
-           console.log(juegos);
+           //console.log(juegos);
            this.juegos = juegos;
            resolve(juegos);
          });

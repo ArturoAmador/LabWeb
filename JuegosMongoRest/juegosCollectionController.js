@@ -270,7 +270,7 @@ exports.obtener_juegos_plataforma = (req, res) => {
             });
 
             juegos.find({'_id':{$in:games}}).toArray( (err, result) => {
-                console.log('result games: ', JSON.stringify(result));
+                //console.log('result games: ', JSON.stringify(result));
                 //resultsGames.push(result);
                 mdbclient.close();
                 res.end(JSON.stringify(result));
