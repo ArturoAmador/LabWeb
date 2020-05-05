@@ -136,8 +136,9 @@ export class ConsolasService {
     return this.httpClient.get(consolaServicioRest);
   }
 
-  obtieneJuego(idConsola:string, idJuego:string) {
-    return this.consolas[idConsola].juegos[idJuego];
+  obtieneJuego(idJuego:string) {
+    const consolaServicioRest = 'http://localhost:8585/buscar_juegos/' + idJuego;
+    return this.httpClient.get(consolaServicioRest);
   }
 
   buscarConsolas(palabras: string): Consola[] {

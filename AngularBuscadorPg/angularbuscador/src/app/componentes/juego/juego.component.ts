@@ -12,16 +12,28 @@ export class JuegoComponent implements OnInit {
   juego:any;
   idConsola:string;
   idJuego:string;
+  juegoAsincrono: any;
 
   constructor(private activatedRoute:ActivatedRoute,
               private consolasService:ConsolasService) {
+
+
     this.activatedRoute.params.subscribe(params => {
-      console.log(params['idConsola']);
-      console.log(params['idJuego']);
+      //console.log(params['idConsola']);
+
+      this.juegoAsincrono = new Promise((resolve, reject) =>{
+        this.consolasService.obtieneJuego(params['idJuego']).subscribe(juego => {
+          this.juego = juego;
+          resolve(juego);
+        });
+      });
+
+      /*console.log(params['idJuego']);
       this.idConsola = params['idConsola'];
       this.idJuego = params['idJuego'];
-      this.juego = this.consolasService.obtieneJuego(this.idConsola, this.idJuego);      
-    })
+      this.juego = this.consolasService.obtieneJuego(this.idConsola, this.idJuego); */
+
+    });
   }
 
   ngOnInit() {

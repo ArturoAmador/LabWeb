@@ -3,7 +3,5 @@
     <h1 class="display-4">{{consola[0].nombre}}</h1>
     <p class="lead">{{consola[0].ficha_tecnica}}</p>
   </div>
-  <center>
-    <a [routerLink]="['/juegosconsola',consola[0]._id]" class="btn btn-primary">Juegos</a>
-  </center>
+  <a [routerLink]="['/juegosconsola',consola[0]._id]" class="btn btn-primary">Juegos</a>
 </div>
