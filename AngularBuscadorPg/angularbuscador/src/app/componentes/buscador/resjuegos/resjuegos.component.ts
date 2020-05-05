@@ -12,19 +12,22 @@ export class ResjuegosComponent implements OnInit {
   palabrasBusqueda: string;
   juegos: any[] = [];
   idConsola: number = 0;
+  juegoAsicrono: any;
 
-  constructor(private activatedRoute:ActivatedRoute, private consolasService: ConsolasService) { }
+  constructor(private activatedRoute: ActivatedRoute, private consolasService: ConsolasService) {
+    this.activatedRoute.params.subscribe(params => {
+      this.juegoAsicrono = new Promise((resolve, reject) => {
+        this.palabrasBusqueda = params['palabrasBusqueda'];
+        this.consolasService.buscarJuegos(this.palabrasBusqueda).subscribe(juegos => {
+          this.juegos = juegos;
+          resolve(juegos);
+          console.log('juegos: ',juegos);
+        });
+      });
+    });
+  }
 
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe(params => {
-      this.palabrasBusqueda = params['palabrasBusqueda'];
-      this.juegos = this.consolasService.buscarJuegos(this.palabrasBusqueda);
-      console.log(this.juegos);
-
-
-    });
-
   }
 
   obtenerIdConsola(nombreConsola: string) {

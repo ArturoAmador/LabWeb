@@ -159,21 +159,8 @@ export class ConsolasService {
   }
 
   buscarJuegos(palabras: string): any {
-    let resultadosJuegos = [];
-    palabras = palabras.toLowerCase();
-
-    this.consolas.forEach(consolas => {
-      let juegos = consolas.juegos;
-      juegos.forEach((juego, index) => {
-        if (juego.nombre.indexOf(palabras) > -1) {
-          juego.consola = consolas.nombre;
-          juego.juegoId = index;
-          resultadosJuegos.push(juego);
-        }
-      });
-    });
-
-    return resultadosJuegos;
+    const consolaServicioRest = 'http://localhost:8585/buscar_juegos/' + palabras;
+    return this.httpClient.get(consolaServicioRest);
 
   }
 
