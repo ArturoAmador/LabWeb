@@ -141,20 +141,10 @@ export class ConsolasService {
     return this.httpClient.get(consolaServicioRest);
   }
 
-  buscarConsolas(palabras: string): Consola[] {
+  buscarConsolas(palabras: string){
 
-    let resultadosConsolas: Consola[] = [];
-    palabras = palabras.toLowerCase();
-
-    this.consolas.forEach(consolas => {
-      const nombreConsola = consolas.nombre.toLowerCase();
-      if (nombreConsola.indexOf(palabras) > -1) {
-        //consolas.id = this.obtenerIDConsola(consolas.nombre);
-        resultadosConsolas.push(consolas);
-      }
-    });
-
-    return resultadosConsolas;
+    const consolaServicioRest = 'http://localhost:8585/plataforma/' + palabras;
+    return this.httpClient.get(consolaServicioRest);
 
   }
 

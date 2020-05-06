@@ -9,10 +9,27 @@ import { Consola, ConsolasService } from "../../../servicios/consolas.service";
 })
 export class ResconsolasComponent implements OnInit {
 
-  consolas: Consola[] = [];
+  consolas: any;
   palabrasBusqueda: string;
+  cosolaAsincrona: any;
 
-  constructor(private activatedRoute:ActivatedRoute, private consolasService: ConsolasService) { }
+  constructor(private activatedRoute:ActivatedRoute, private consolasService: ConsolasService) {
+    this.activatedRoute.params.subscribe(params => {
+      console.log("resconsola: ",params['palabrasBusqueda']);
+      this.palabrasBusqueda = params['palabrasBusqueda'];
+      this.cosolaAsincrona = new Promise((resolve, reject) => {
+        this.consolasService.buscarConsolas(this.palabrasBusqueda).subscribe(consola => {
+          this.consolas = consola;
+          resolve(consola);
+        });
+      });
+      /*this.consolas = this.consolasService.buscarConsolas(this.palabrasBusqueda);
+      //this.consolasService.obtenerIDConsola(this.consolas.nombre)
+      console.log('this consolas');
+      console.log(this.consolas);*/
+    });
+
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
