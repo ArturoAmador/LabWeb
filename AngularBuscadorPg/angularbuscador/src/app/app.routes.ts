@@ -11,6 +11,8 @@ import { ResconsolasComponent } from './componetes/buscador/resconsolas/resconso
 import { ResjuegosComponent } from './componentes/buscador/resjuegos/resjuegos.component';
 import {BlogComponent} from './componentes/blog/blog.component';
 
+import { AdminComponent } from './componentes/admin/admin.component';
+
 const APP_ROUTES: Routes = [
 
   // Se inicializan todas las rutas que vamos a utilizar.
@@ -28,6 +30,8 @@ const APP_ROUTES: Routes = [
   {path: 'resjuegos/:palabrasBusqueda', component: ResjuegosComponent },
 
   {path: 'blog', component: BlogComponent },
+
+  {path: 'admin', component: AdminComponent },
 
   { path: '**', pathMatch: 'full', redirectTo: 'principal' }
 

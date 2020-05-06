@@ -18,6 +18,7 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { JuegosService } from './servicios/juegos.service';
+import { AdminComponent } from './componentes/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { JuegosService } from './servicios/juegos.service';
     ResconsolasComponent,
     ResjuegosComponent,
     BlogComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
