@@ -204,8 +204,16 @@ export class ConsolasService {
 
   }
 
+
+  saveBlog(form: any) {
+    console.log('SAVE BLOG!');
+    const consolaServicioRest = 'http://localhost:8585/save_post/';
+    return this.httpClient.post(consolaServicioRest, form, {responseType: 'text'});
+  }
+
   getPublishments() {
-    return this.comments;
+    const consolaServicioRest = 'http://localhost:8585/blog/';
+    return this.httpClient.get(consolaServicioRest);
   }
 
 }

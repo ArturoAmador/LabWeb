@@ -6,6 +6,8 @@ module.exports = function (app) {
 
     app.route('/save_juego').post(juegosController.save_juego);
 
+    app.route('/save_post').post(juegosController.save_post);
+
     app.route('/plataformas').get(juegosController.obtener_todas_plataformas);
 
     app.route('/plataforma/:parametro').get(juegosController.obtener_plataforma);

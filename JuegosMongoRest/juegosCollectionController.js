@@ -212,7 +212,7 @@ exports.obtener_blog = (req, res) => {
 
         let query = req.params.parametro;
         const db = mdbclient.db(dbName);
-        db.collection("publicaciones").find({"_id":query}).project({_id: 0, nombre: 1, fecha: 1, contenido: 1}).toArray((err, result) => {
+        db.collection("blog").find().project({_id: 0, nombre: 1, fecha: 1, contenido: 1}).toArray((err, result) => {
 
             if (err) {
 
@@ -356,7 +356,30 @@ exports.save_juego = (req, res) => {
             { $push: { lista_de_juesgo: id } }
         );
 
-        console.log('juego id: ', juego._id);
+        res.send({'status':'completed'})
+
+    });
+
+};
+
+
+exports.save_post = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+
+        if (err) { throw err; }
+
+        console.log('save post');
+
+        const db = mdbclient.db(dbName);
+
+        let blog = db.collection("blog");
+
+        blog.save({
+            nombre: req.body.nombre,
+            fecha: new Date(),
+            contenido: req.body.entrada,
+        });
 
         res.send({'status':'completed'})
 
