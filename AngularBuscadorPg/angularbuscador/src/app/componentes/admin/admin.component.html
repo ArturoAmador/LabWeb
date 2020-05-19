@@ -1,23 +1,245 @@
-<form>
+<form [formGroup]="formularioConsola" (ngSubmit)="guardar()">
   <br>
   <h3>Nueva Consola</h3>
   <hr>
   <div class="form-group">
+    <label for="consolaName">ID</label>
+    <input type="text" class="form-control" id="consolaId" aria-describedby="consola"
+           placeholder="ID de la consola"
+           formControlName="id"
+           [ngClass]="{ 'is-invalid' : formularioConsola.get('id').invalid }"/>
+
+    <div *ngIf="formularioConsola.controls['id'].errors?.required && formularioConsola.invalid" class="text-danger text-center w-100">
+      Por favor indique el id.
+    </div>
+    <div *ngIf="formularioConsola.controls['id'].errors?.minlength" class="text-danger text-center w-100">
+      El id debe de ser mayor a 2 caracteres.
+    </div>
+  </div>
+
+  <div class="form-group">
     <label for="consolaName">Nombre</label>
-    <input type="text" class="form-control" id="consolaName" aria-describedby="consola" placeholder="Nombre de consola"/>
-    <small id="consolaNameHelp" class="form-text text-muted">Nombre de la consola.</small>
+    <input type="text" class="form-control" id="consolaName" aria-describedby="consola"
+           placeholder="Nombre de consola"
+           formControlName="nombre"
+           [ngClass]="{ 'is-invalid' : formularioConsola.get('nombre').invalid }"/>
+
+    <div *ngIf="formularioConsola.controls['nombre'].errors?.required && formularioConsola.invalid" class="text-danger text-center w-100">
+      Por favor indique el nombre.
+    </div>
+    <div *ngIf="formularioConsola.controls['nombre'].errors?.minlength" class="text-danger text-center w-100">
+      El nombre debe de ser mayor a 2 caracteres.
+    </div>
+
   </div>
   <div class="form-group">
     <label for="consolaName">Imagen de Consola</label>
-    <input type="url" class="form-control" id="urlImagen" aria-describedby="URL" placeholder="https://url.com/"/>
-    <small id="imagenPrincipalHelp" class="form-text text-muted">URL imagen de la consola.</small>
+    <input type="url" class="form-control" id="urlImagen" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="url"
+           [ngClass]="{ 'is-invalid' : formularioConsola.get('url').invalid }"/>
+
+    <div *ngIf="formularioConsola.controls['url'].errors?.required && formularioConsola.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioConsola.controls['url'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
   </div>
   <div class="form-group">
     <label for="consolaName">Ficha tecnica</label>
-    <textarea class="w-100 form-control h-100" id="fichaTecnica" aria-describedby="descripción" placeholder="Datos tecnicos de la consola"></textarea>
-    <small id="fichaTecnicaHelp" class="form-text text-muted">Ficha tecnica de la consola.</small>
+    <textarea class="w-100 form-control h-100" id="fichaTecnica" aria-describedby="descripción" placeholder="Datos tecnicos de la consola"
+              formControlName="fichaTecnica"
+              [ngClass]="{ 'is-invalid' : formularioConsola.get('fichaTecnica').invalid }"></textarea>
+
+    <div *ngIf="formularioConsola.controls['fichaTecnica'].errors?.required && formularioConsola.invalid" class="text-danger text-center w-100">
+      La ficha tecnica es requerida y requiere un minimo de 20 caracteres.
+    </div>
+    <div *ngIf="formularioConsola.controls['fichaTecnica'].errors?.minlength" class="text-danger text-center w-100">
+      La ficha tecnica requiere 20 caracteres.
+    </div>
+
   </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Guardar Consola</button>
+</form>
+
+<hr>
+
+<form [formGroup]="formularioJuego" (ngSubmit)="guardarJuego()">
+  <br>
+  <h3>Nuevo Juego</h3>
   <hr>
-  <h3>Juegos</h3>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
+  <div class="form-group">
+    <label for="consolaName">Consola</label>
+    <input type="text" class="form-control" id="consola" aria-describedby="consola"
+           placeholder="Nombre de consola"
+           formControlName="consola"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('consola').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['consola'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      Por favor indique el nombre del juego.
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Nombre</label>
+    <input type="text" class="form-control" id="juegoName" aria-describedby="consola"
+           placeholder="Nombre del Juego"
+           formControlName="nombre"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('nombre').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['nombre'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      Por favor indique el nombre del juego.
+    </div>
+    <div *ngIf="formularioJuego.controls['nombre'].errors?.minlength" class="text-danger text-center w-100">
+      El nombre debe de ser mayor a 5 caracteres.
+    </div>
+
+  </div>
+  <div class="form-group">
+    <label for="consolaName">Imagen de Juego</label>
+    <input type="url" class="form-control" id="imagenPrincipal" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="imagen"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('imagen').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['imagen'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen principal es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['imagen'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Developer</label>
+    <input type="text" class="form-control" id="developer" aria-describedby="consola"
+           placeholder="Nombre de consola"
+           formControlName="developer"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('developer').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['developer'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      Por favor indique el nombre.
+    </div>
+    <div *ngIf="formularioJuego.controls['developer'].errors?.minlength" class="text-danger text-center w-100">
+      El nombre debe de ser mayor a 2 caracteres.
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Fecha de lanzamiento</label>
+    <input type="date" class="form-control" id="lanzamiento" aria-describedby="consola"
+           placeholder="Nombre de consola"
+           formControlName="lanzamiento"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('lanzamiento').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['lanzamiento'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      Por favor indique la fecha de lanzamiento.
+    </div>
+  </div>
+
+  <br>
+  <h4>Imagenes del Juego</h4>
+  <br>
+  <div class="form-group">
+    <label for="consolaName">Imagen de Juego 1</label>
+    <input type="url" class="form-control" id="imagen1" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="imagen_1"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('imagen_1').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['imagen_1'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['imagen_1'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Imagen de Juego 2</label>
+    <input type="url" class="form-control" id="imagen2" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="imagen_2"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('imagen_2').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['imagen_2'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['imagen_2'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Imagen de Juego 3</label>
+    <input type="url" class="form-control" id="imagen3" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="imagen_3"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('imagen_3').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['imagen_3'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['imagen_3'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+  <br>
+  <h4>Links de Blogs</h4>
+  <br>
+  <div class="form-group">
+    <label for="consolaName">Blog relacionado 1</label>
+    <input type="url" class="form-control" id="blog_1" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="blog_1"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('blog_1').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['blog_1'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['blog_1'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Blog relacionado 2</label>
+    <input type="url" class="form-control" id="blog_2" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="blog_2"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('blog_2').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['blog_2'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['blog_2'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="consolaName">Blog relacionado 3</label>
+    <input type="url" class="form-control" id="blog_3" aria-describedby="URL" placeholder="https://url.com/"
+           formControlName="blog_3"
+           [ngClass]="{ 'is-invalid' : formularioJuego.get('blog_3').invalid }"/>
+
+    <div *ngIf="formularioJuego.controls['blog_3'].errors?.required && formularioJuego.invalid" class="text-danger text-center w-100">
+      La url de la imagen es necesaría.
+    </div>
+    <div *ngIf="formularioJuego.controls['blog_3'].errors?.pattern" class="text-danger text-center w-100">
+      URL no valida
+    </div>
+
+  </div>
+
+
+
+
+  <hr>
+  <button type="submit" class="btn btn-primary">Guardar Juego</button>
 </form>

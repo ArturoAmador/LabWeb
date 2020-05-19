@@ -1,5 +1,5 @@
 <br/>
-<form  [formGroup]="formularioEntrada" (ngSubmit)="guardar()">
+<form [formGroup]="formularioEntrada" (ngSubmit)="guardar()">
   <div>
 
     <div class="form-group row">
@@ -9,10 +9,11 @@
                type="text"
                placeholder="Nombre"
                formControlName="nombre"
-               [ngClass]="{ 'is-invalid' : formularioEntrada.get('nombre').invalid }" >
+               [ngClass]="{ 'is-invalid' : formularioEntrada.get('nombre').invalid }">
       </div>
 
-      <div *ngIf="formularioEntrada.controls['nombre'].errors?.required && formularioEntrada.invalid" class="text-danger text-center w-100">
+      <div *ngIf="formularioEntrada.controls['nombre'].errors?.required && formularioEntrada.invalid"
+           class="text-danger text-center w-100">
         Por favor indique el nombre.
       </div>
       <div *ngIf="formularioEntrada.controls['nombre'].errors?.minlength" class="text-danger text-center w-100">
@@ -28,7 +29,7 @@
                   cols="30"
                   rows="10" placeholder="Entrada"
                   formControlName="entrada"
-                  [ngClass]="{ 'is-invalid' : formularioEntrada.get('entrada').invalid }" ></textarea>
+                  [ngClass]="{ 'is-invalid' : formularioEntrada.get('entrada').invalid }"></textarea>
       </div>
       <div *ngIf="formularioEntrada.controls['entrada'].errors?.required" class="text-danger text-center w-100">
         Por favor deje su comentario.
@@ -53,7 +54,9 @@
 </form>
 <hr>
 
-<div class="row"><div class="col-12 text-center"><h2>Comentarios</h2></div></div>
+<div class="row">
+  <div class="col-12 text-center"><h2>Comentarios</h2></div>
+</div>
 
 <div *ngFor="let comentario of comments; index as i">
   <strong>{{comentario.name}}</strong><br>

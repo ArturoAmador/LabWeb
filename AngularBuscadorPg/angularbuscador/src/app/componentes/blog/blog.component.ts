@@ -25,7 +25,7 @@ export class BlogComponent implements OnInit {
 
   guardar() {
     const formularioData = this.formularioEntrada.value;
-    if (this.formularioEntrada.valid){
+    if (this.formularioEntrada.valid) {
       this.consolasService.savePublishment(formularioData.nombre, new Date(), formularioData.entrada);
       this.comments = this.consolasService.getPublishments();
       console.log(this.comments);

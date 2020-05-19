@@ -2,6 +2,16 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017";
 const dbName = 'videojuegos';
+const mongoose = require('mongoose');
+
+// define Schema
+let consolaSchema = mongoose.Schema({
+    _id: String,
+    nombre: String,
+    imagen: String,
+    ficha_tecnica: String,
+    lista_de_juesgo: Array
+});
 
 //A y B
 exports.obtener_plataforma = (req, res) => {
@@ -282,6 +292,73 @@ exports.obtener_juegos_plataforma = (req, res) => {
             });
 
         });
+
+    });
+
+};
+
+exports.save_consola = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+
+        if (err) { throw err; }
+
+        const db = mdbclient.db(dbName);
+
+        //Solamente obtenemos el nombre y la matricula
+        let id = req.params.palabraClave;
+        console.log('id: ',id);
+        let consola = db.collection("consola");
+
+        consola.save({
+            _id:req.body.id,
+            nombre: req.body.nombre,
+            imagen: req.body.url,
+            ficha_tecnica: req.body.ficha_tecnica,
+            lista_de_juesgo:[]
+        });
+
+        res.send({'status':'completed'})
+
+    });
+
+};
+
+
+exports.save_juego = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+
+        if (err) { throw err; }
+
+        const db = mdbclient.db(dbName);
+
+        let consola = db.collection("consola");
+        let juego = db.collection("juego");
+
+        const images_arr = [req.body.imagen_1, req.body.imagen_2, req.body.imagen_3];
+        const links_arr = [req.body.blog_1, req.body.blog_2, req.body.blog_3];
+
+        const id = Math.floor(Math.random() * (100000000 - 10)) + 10;
+
+        juego.save({
+            _id: id,
+            nombre: req.body.nombre,
+            imagen: req.body.imagen,
+            developer: req.body.ficha_tecnica,
+            lanzamiento: new Date(req.body.lanzamiento),
+            imagenes: images_arr,
+            links: links_arr
+        });
+
+        consola.update(
+            { _id: req.body.consola },
+            { $push: { lista_de_juesgo: id } }
+        );
+
+        console.log('juego id: ', juego._id);
+
+        res.send({'status':'completed'})
 
     });
 

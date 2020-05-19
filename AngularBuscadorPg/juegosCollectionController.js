@@ -286,3 +286,37 @@ exports.obtener_juegos_plataforma = (req, res) => {
     });
 
 };
+
+
+exports.save_consola = (req, res) => {
+    MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},  (err,
+                                                                                  mdbclient) =>{
+
+        if (err) { throw err; }
+
+        const db = mdbclient.db(dbName);
+
+        //Solamente obtenemos el nombre y la matricula
+        let id = req.params.palabraClave;
+        console.log('id: ',id);
+        let consola = db.collection("consola");
+
+        // define Schema
+        let consolaSchema = mongoose.Schema({
+            _id: String,
+            name: String,
+            price: String,
+            quantity: String
+        });
+
+        // compile schema to model
+        let Consola = mongoose.model('consola', consolaSchema, 'consola');
+
+        console.log('req: ', req.params);
+
+        res.send({'status':'completed'})
+
+
+    });
+
+};

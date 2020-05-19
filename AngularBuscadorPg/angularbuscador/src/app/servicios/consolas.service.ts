@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {stringify} from "querystring";
+import { stringify } from "querystring";
 
 import { HttpClient } from '@angular/common/http';
 
@@ -181,6 +181,26 @@ export class ConsolasService {
     let comments = JSON.stringify(this.comments);
     console.log(comments)
     sessionStorage.setItem('publishment', comments);
+
+  }
+
+  saveConsola(form: any) {
+
+    console.log('save consola');
+    console.log(form);
+
+    const consolaServicioRest = 'http://localhost:8585/save_consola/';
+    return this.httpClient.post(consolaServicioRest, form, {responseType: 'text'});
+
+  }
+
+  saveJuego(form: any) {
+
+    console.log('save consola');
+    console.log(form);
+
+    const consolaServicioRest = 'http://localhost:8585/save_juego/';
+    return this.httpClient.post(consolaServicioRest, form, {responseType: 'text'});
 
   }
 
