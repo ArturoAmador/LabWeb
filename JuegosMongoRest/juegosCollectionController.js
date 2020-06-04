@@ -314,7 +314,7 @@ exports.save_consola = (req, res) => {
             _id:req.body.id,
             nombre: req.body.nombre,
             imagen: req.body.url,
-            ficha_tecnica: req.body.ficha_tecnica,
+            ficha_tecnica: req.body.fichaTecnica,
             lista_de_juesgo:[]
         });
 
@@ -345,7 +345,7 @@ exports.save_juego = (req, res) => {
             _id: id,
             nombre: req.body.nombre,
             imagen: req.body.imagen,
-            developer: req.body.ficha_tecnica,
+            developer: req.body.developer,
             lanzamiento: new Date(req.body.lanzamiento),
             imagenes: images_arr,
             links: links_arr
